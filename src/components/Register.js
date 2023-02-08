@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useAuth } from '../context/authContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Register() {
 
@@ -6,18 +8,37 @@ export function Register() {
     email: '', password: ''
   })
 
+  const [error, setError] = useState()
+
+  const { register } = useAuth()
+
+  const navigate = useNavigate()
+
   const handleChange = ({target: {name, value}}) => {
-    console.log(name, value)
     setUser({...user, [name]: value})
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(user)
+    setError('')
+    try {
+      console.log(user.email, user.password)
+      await register(user.email, user.password)
+      navigate("/")
+    } catch (error) {
+      console.log(error.code)
+      if(error.code === 'auth/invalid-email')
+        setError("Correo invalido")
+      else if(error.code === 'auth/weak-password')
+        setError("Password menor de 6 caracteres")
+      else setError(error.message)
+    }
   }
 
   return(
     <div>
+      <h2>Register</h2>
+      {error && <p>{error}</p> }
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input 
@@ -27,7 +48,8 @@ export function Register() {
         />
         <label htmlFor="password">Password</label>
         <input 
-          type="password" name="password" id="password" 
+          type="password" name="password" 
+          id="password" placeholder="******" 
           onChange={handleChange}
         />
         <button>Register</button>

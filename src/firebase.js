@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "react-fb-auth-a7974",
   storageBucket: "react-fb-auth-a7974.appspot.com",
   messagingSenderId: "520581200931",
-  appId: "1:520581200931:web:130c4f7414bb8601800596"
+  appId: "1:520581200931:web:932d1e7af772fd62800596"
 };
 
 // Initialize Firebase

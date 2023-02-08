@@ -1,8 +1,8 @@
 {
-  "name": "app-react",
+  "name": "auth-firebase-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Juan-David-Orozco.github.io/app-react",
+  "homepage": "http://Juan-David-Orozco.github.io/auth-firebase-react",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -41,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.6"
   }
 }
