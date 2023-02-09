@@ -11,7 +11,7 @@ export function Login() {
 
   const [error, setError] = useState()
 
-  const { login, loginWithGoogle } = useAuth()
+  const { login, loginWithGoogle, resetPassword } = useAuth()
 
   const navigate = useNavigate()
 
@@ -46,6 +46,16 @@ export function Login() {
     }
   }
 
+  const handleResetPassword = async () => {
+    if(!user.email) return setError("Please insert your password")
+    try {
+      await resetPassword(user.email)
+      setError('We sent you an email with a link to reset your password')
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
   return(
     <div className='w-full max-w-xs m-auto'>
       <h1 className='text-center font-bold my-2'>Login</h1>
@@ -71,8 +81,14 @@ export function Login() {
             onChange={handleChange}
           />
         </div>
-        <button className='bg-indigo-400 hover:bg-indigo-700 rounded-md p-2 
-        text-sm w-full focus:outline-none focus:shadow-outline'>Login</button>
+       <div className='flex items-center justify-between'>
+          <button className='bg-indigo-400 hover:bg-indigo-700 rounded-md py-2 
+          px-4 text-sm focus:outline-none focus:shadow-outline'>Login</button>
+
+          <a onClick={handleResetPassword} href="#!"
+          className='inline-block align-baseline font-bold text-sm 
+          text-blue-500 hover:text-blue-700'>Forgot Password?</a>
+       </div>
 
         <p className='mt-6 text-sm flex justify-between px-3'>Don't have an Account? <Link to={'/register'}>Register</Link></p>
       </form>
